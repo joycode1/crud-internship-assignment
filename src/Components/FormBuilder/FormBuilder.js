@@ -1,19 +1,23 @@
 import React, {useState} from 'react';
 import Input from "../UI/Input/Input";
 import Button from "../UI/Button/Button";
+import isFormValid from "../../utils/formValidation";
 const FormBuilder = props => {
     const [formIsValid, setFormIsValid] = useState(false);
-    const [inputState, setInputState] = useState({
+    const [inputForm, setInputForm] = useState({
         name: {
             elementType: 'input',
             elementLabel: 'Name',
             elementConfig: {
                 type: 'text',
-                placeholder: 'Enter Your Name...'
+                placeholder: 'Enter Your Name...',
+
             },
+            errorMsg:'',
             value: '',
             validation: {
-                required: true
+                required: true,
+                match: /^[a-zA-Z ]*$/
             },
             valid: false,
             touched: false
@@ -26,6 +30,7 @@ const FormBuilder = props => {
                 placeholder: 'Enter your email...'
             },
             value: '',
+            errorMsg:'',
             validation: {
                 required: true,
                 match: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
@@ -41,8 +46,10 @@ const FormBuilder = props => {
                 placeholder: 'Enter Your Age...'
             },
             value: '',
+            errorMsg:'',
             validation: {
-                required: true
+                required: true,
+                match: /^[0-9]*$/
             },
             valid: false,
             touched: false
@@ -55,8 +62,11 @@ const FormBuilder = props => {
                 placeholder: 'Enter Your Phone...'
             },
             value: '',
+            errorMsg:'',
             validation: {
-                required: true
+                required: true,
+                match: /^[+]*[0-9]{6,}$/
+
             },
             valid: false,
             touched: false
@@ -82,8 +92,6 @@ const FormBuilder = props => {
             elementConfig: {
                 type: 'radio',
                 name: 'communication',
-
-
             },
             value: 'phone',
             validation: {
@@ -104,7 +112,6 @@ const FormBuilder = props => {
                     {value: 'C1'},
                     {value: 'C2'},
                 ],
-
             },
             value: 'A1',
             validation: {},
@@ -133,7 +140,7 @@ const FormBuilder = props => {
             },
             value: '',
             validation: {},
-            valid: false,
+            valid: true,
             touched: false
         },
         shortPresent:
@@ -147,7 +154,7 @@ const FormBuilder = props => {
                 },
                 value: '',
                 validation: {},
-                valid: false,
+                valid: true,
                 touched: false
             },
         homeStudy: {
@@ -166,14 +173,27 @@ const FormBuilder = props => {
     const formSubmitHandler = () => {
 
     };
-    const inputChangedHandler = (id, ev) => {
-
+    const inputChangedHandler = (type, ev) => {
+        const {isValid, errorMsg} = isFormValid(ev.target.value, inputForm, type);
+        const form = {
+            ...inputForm,
+            [type]: {
+                ...inputForm[type],
+                value: ev.target.value,
+                touched: true,
+                valid: isValid,
+                errorMsg
+            }
+        };
+        setInputForm(form);
+        let isValidForm = Object.keys(form).every((key) => form[key].valid);
+        setFormIsValid(isValidForm);
     };
     const formElements = [];
-    for (let key in inputState) {
+    for (let key in inputForm) {
         formElements.push({
             id: key,
-            config: inputState[key]
+            config: inputForm[key]
         })
     }
     let form = <form onSubmit={formSubmitHandler}>
@@ -183,6 +203,7 @@ const FormBuilder = props => {
             elementConfig={config.elementConfig}
             elementType={config.elementType}
             elementLabel={config.elementLabel}
+            errorMsg={config.errorMsg}
             changed={inputChangedHandler.bind(undefined, id)}
         />))}
         <Button  disabled={!formIsValid}>Submit Application</Button>

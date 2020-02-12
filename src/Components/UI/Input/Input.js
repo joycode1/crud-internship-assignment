@@ -21,7 +21,6 @@ const Input = props => {
             }
         </select>
 
-
     };
     const inputElement = inputsMap[props.elementType]();
     return (
@@ -30,6 +29,7 @@ const Input = props => {
                 {props.elementLabel}
                 {inputElement}
             </label>
+            <div>{props.errorMsg}</div>
 
         </div>
     )

@@ -54,7 +54,7 @@ li a {
 li a:hover,
 li a:active,
 li a.active {
-    color: #40A4C8;
+    color: #FFFFFF;
 }
 
 @media (min-width: 500px) {

@@ -1,19 +1,22 @@
 import React from 'react';
-
+import classes from './Input.module.css';
 
 const Input = props => {
     const inputsMap = {
         'input': () => <input
+            className={classes.InputElement}
             {...props.elementConfig}
             value={props.value}
             onChange={props.changed}
         />,
         'textarea': () =>
-            <textarea {...props.elementConfig}
+            <textarea
+                className={classes.InputElement}
+                {...props.elementConfig}
                       value={props.value}
                       onChange={props.changed}
             />,
-        'select': () => <select value={props.value} onChange={props.changed}>
+        'select': () => <select className={classes.InputElement} value={props.value} onChange={props.changed}>
             {
                 props.elementConfig.options.map(({value}) => (
                     <option key={value} value={value}>{value}</option>
@@ -24,13 +27,12 @@ const Input = props => {
     };
     const inputElement = inputsMap[props.elementType]();
     return (
-        <div>
-            <label>
+        <div classes={classes.Input}>
+            <label className={classes.Label}>
                 {props.elementLabel}
                 {inputElement}
             </label>
-            <div>{props.errorMsg}</div>
-
+            <div className={classes.errorMsg}>{props.errorMsg}</div>
         </div>
     )
 };

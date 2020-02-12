@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import Input from "../UI/Input/Input";
 import Button from "../UI/Button/Button";
 import isFormValid from "../../utils/formValidation";
+import classes from './FormBuilder.module.css';
 const FormBuilder = props => {
     const [formIsValid, setFormIsValid] = useState(false);
     const [inputForm, setInputForm] = useState({
@@ -27,7 +28,7 @@ const FormBuilder = props => {
             elementLabel: 'Email',
             elementConfig: {
                 type: 'text',
-                placeholder: 'Enter your email...'
+                placeholder: 'Enter your Email...'
             },
             value: '',
             errorMsg:'',
@@ -209,10 +210,9 @@ const FormBuilder = props => {
         <Button  disabled={!formIsValid}>Submit Application</Button>
     </form>;
     return (
-        <React.Fragment>
-            <div>Hello</div>
+        <div className={classes.FormBuilder}>
             {form}
-        </React.Fragment>
+        </div>
 
     )
 };

@@ -84,9 +84,7 @@ const ApplicationsTable = props => {
         onDeleteRowHandler(currAppId);
         cancelModal();
     };
-    const editRowHandler = ()=>{
 
-    };
     let modalForm =<DeleteForm
         modalClose={cancelModal}
         deleteRowClicked={deleteRowHandler}

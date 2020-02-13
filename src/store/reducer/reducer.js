@@ -3,7 +3,7 @@ import {
     SUBMIT_SUCCESS,
     REQUEST_FAIL,
     FETCH_DATA_SUCCESS,
-    DELETE_DATA_SUCCESS,
+    DELETE_DATA_SUCCESS, UPDATE_DATA_SUCCESS,
 } from "../actions/actionTypes";
 
 const initialState = {
@@ -47,6 +47,16 @@ const reducer = (state = initialState, action) => {
             return{
                 ...state,
                 applications,
+                loading:false
+            }
+        },
+        [UPDATE_DATA_SUCCESS]: ()=>{
+            const changedApplicationIndex = state.applications.findIndex(({appId})=> appId===action.appId);
+            const applications =[...state.applications];
+           applications.splice(changedApplicationIndex,1,action.appData);
+            return{
+                ...state,
+                applications:applications,
                 loading:false
             }
         }

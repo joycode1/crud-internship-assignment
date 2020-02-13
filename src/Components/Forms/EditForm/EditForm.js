@@ -13,7 +13,6 @@ const EditForm = props => {
                 <FormBuilder appId={props.appId}/>
             </div>
             <div className="modal-footer">
-                <Button btnClass="btn btn-primary" clicked={props.editRowClicked}>Submit</Button>
                 <Button btnClass="btn btn-secondary" clicked={props.modalClose}>Close</Button>
             </div>
         </React.Fragment>

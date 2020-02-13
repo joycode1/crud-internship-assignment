@@ -1,5 +1,6 @@
 import React from 'react';
 import classes from './Input.module.css';
+import {Radio, RadioGroup} from 'react-radio-group';
 
 const Input = props => {
     const inputsMap = {
@@ -13,8 +14,8 @@ const Input = props => {
             <textarea
                 className={classes.InputElement}
                 {...props.elementConfig}
-                      value={props.value}
-                      onChange={props.changed}
+                value={props.value}
+                onChange={props.changed}
             />,
         'select': () => <select className={classes.InputElement} value={props.value} onChange={props.changed}>
             {
@@ -22,9 +23,14 @@ const Input = props => {
                     <option key={value} value={value}>{value}</option>
                 ))
             }
-        </select>
-
+        </select>,
+        'radioGroup': () => <RadioGroup name={props.name} selectedValue={props.value} onChange={props.changed}>
+            {props.elementConfig.options.map(({value, displayValue}) => (
+                <React.Fragment><Radio value={value}/>{displayValue}</React.Fragment>))
+            }
+        </RadioGroup>
     };
+
     const inputElement = inputsMap[props.elementType]();
     return (
         <div classes={classes.Input}>

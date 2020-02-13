@@ -1,11 +1,11 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {connect} from "react-redux";
 import {fetchApplications} from "../../store/actions/actions";
 import Table from "../UI/Table/Table";
-
+import Modal from "../UI/Modal/Modal";
 const ApplicationsTable = props => {
     const {onFetchApplications, applications, loading} = props;
-
+    const [modalShow,setModalShow] = useState(false);
     const columns = React.useMemo(
         () => [
             {
@@ -57,8 +57,26 @@ const ApplicationsTable = props => {
         onFetchApplications();
 
     }, [onFetchApplications]);
-    console.log(applications);
-    return (<div><Table columns={columns} data={applications}/></div>)
+
+    const rowDeleteHandler = (appId, ev) => {
+        console.log(appId)
+        setModalShow(true);
+    };
+    const cancelModal = ()=>{
+        setModalShow(false);
+    };
+    return (
+        <React.Fragment>
+            <Modal show={modalShow} modalClose={cancelModal} >
+            modal here
+            </Modal>
+            <div className="container-fluid">
+                <Table columns={columns} data={applications}
+                       deleteHandler={rowDeleteHandler}
+                />
+            </div>
+        </React.Fragment>
+       )
 };
 const mapStateToProps = state => {
     return {

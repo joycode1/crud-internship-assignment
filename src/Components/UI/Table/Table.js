@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React from 'react'
 import {useTable} from "react-table";
 import './Table.module.css';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
@@ -6,7 +6,7 @@ import {faEdit, faTrashAlt} from '@fortawesome/free-solid-svg-icons'
 import Button from "../Button/Button";
 
 const Table = props => {
-    const {columns, data,deleteHandler} = props;
+    const {columns, data, deleteHandler, editHandler} = props;
     const mapHomeStudy = {
         true: 'Yes',
         false: 'No'
@@ -47,7 +47,8 @@ const Table = props => {
                                     }
                                     return (
                                         <td style={{display: 'flex'}}>
-                                            <Button btnClass="btn btn-success"><FontAwesomeIcon icon={faEdit}/></Button>
+                                            <Button btnClass="btn btn-success"  clicked={editHandler.bind(undefined, row.original.appId)}><FontAwesomeIcon icon={faEdit}
+                                                                                               /></Button>
                                             <Button btnClass="btn btn-danger"
                                                     clicked={deleteHandler.bind(undefined, row.original.appId)}><FontAwesomeIcon
                                                 icon={faTrashAlt}/></Button>

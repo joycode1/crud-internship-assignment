@@ -1,11 +1,15 @@
 import React, {useEffect, useState} from 'react';
 import {connect} from "react-redux";
-import {fetchApplications} from "../../store/actions/actions";
+import {deleteApplication, fetchApplications} from "../../store/actions/actions";
 import Table from "../UI/Table/Table";
 import Modal from "../UI/Modal/Modal";
+import DeleteForm from "../DeleteForm/DeleteForm";
+
 const ApplicationsTable = props => {
-    const {onFetchApplications, applications, loading} = props;
-    const [modalShow,setModalShow] = useState(false);
+    const {onFetchApplications, applications, loading,onDeleteRowHandler} = props;
+    const [modalShow, setModalShow] = useState(false);
+    const [deleteModal, setDeleteModal] = useState(false);
+    const [currAppId, setCurrAppId] = useState(null);
     const columns = React.useMemo(
         () => [
             {
@@ -54,29 +58,48 @@ const ApplicationsTable = props => {
         []
     );
     useEffect(() => {
+        console.log('render')
         onFetchApplications();
 
     }, [onFetchApplications]);
 
-    const rowDeleteHandler = (appId, ev) => {
-        console.log(appId)
+    const modalDeleteHandler = (appId, ev) => {
+        setDeleteModal(true);
+        setCurrAppId(appId);
+        setModalShow(true);
+
+    };
+    const modalEditHandler = (appId, ev) => {
+        setDeleteModal(false);
+        setCurrAppId(appId);
         setModalShow(true);
     };
-    const cancelModal = ()=>{
+    const cancelModal = () => {
+        setDeleteModal(null);
+        setCurrAppId(null);
         setModalShow(false);
     };
+    const deleteRowHandler=() =>{
+        onDeleteRowHandler(currAppId);
+        cancelModal();
+    };
+    const modalForm =<DeleteForm
+        modalClose={cancelModal}
+        deleteRowClicked={deleteRowHandler}
+    />;
     return (
         <React.Fragment>
-            <Modal show={modalShow} modalClose={cancelModal} >
-            modal here
+            <Modal show={modalShow} modalClose={cancelModal}>
+                {modalForm}
             </Modal>
             <div className="container-fluid">
                 <Table columns={columns} data={applications}
-                       deleteHandler={rowDeleteHandler}
+                       deleteHandler={modalDeleteHandler}
+                       editHandler={modalEditHandler}
                 />
             </div>
         </React.Fragment>
-       )
+    )
 };
 const mapStateToProps = state => {
     return {
@@ -86,7 +109,8 @@ const mapStateToProps = state => {
 };
 const mapDispatchToProps = dispatch => {
     return {
-        onFetchApplications: () => dispatch(fetchApplications())
+        onFetchApplications: () => dispatch(fetchApplications()),
+        onDeleteRowHandler:(appId) =>dispatch(deleteApplication(appId))
     }
 };
 export default connect(mapStateToProps, mapDispatchToProps)(ApplicationsTable);

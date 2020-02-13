@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {REQUEST_START, SUBMIT_SUCCESS, REQUEST_FAIL, FETCH_DATA_SUCCESS} from "./actionTypes";
+import {REQUEST_START, SUBMIT_SUCCESS, REQUEST_FAIL, FETCH_DATA_SUCCESS, DELETE_DATA_SUCCESS} from "./actionTypes";
 
 
 const startRequest = () => {
@@ -52,8 +52,25 @@ const fetchApplications = () => {
     }
 };
 
+const deleteSuccess = (appId) =>{
+    return {
+        type: DELETE_DATA_SUCCESS,
+        appId
 
+    }
+};
+const deleteApplication = (appId)=>{
+    return dispatch =>{
+        dispatch(startRequest());
+        axios.delete(`https://student-management-task.firebaseio.com/applications/${appId}.json`)
+            .then((res) => {
+                dispatch(deleteSuccess(appId))
+            })
+            .catch(err => failRequest(err))
+    }
+};
 export {
     submitApplication,
-    fetchApplications
+    fetchApplications,
+    deleteApplication
 }

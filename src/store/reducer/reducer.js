@@ -1,4 +1,10 @@
-import {REQUEST_START, SUBMIT_SUCCESS, REQUEST_FAIL,FETCH_DATA_SUCCESS,} from "../actions/actionTypes";
+import {
+    REQUEST_START,
+    SUBMIT_SUCCESS,
+    REQUEST_FAIL,
+    FETCH_DATA_SUCCESS,
+    DELETE_DATA_SUCCESS,
+} from "../actions/actionTypes";
 
 const initialState = {
     applications: [],
@@ -19,7 +25,7 @@ const reducer = (state = initialState, action) => {
             const newApplication = {...action.applicationData, appId: action.appId.name,};
             return {
                 ...state,
-                applications: [...state.applications, newApplication],
+                applications: [newApplication,...state.applications],
                 loading: false
             }
         },
@@ -32,8 +38,16 @@ const reducer = (state = initialState, action) => {
         [FETCH_DATA_SUCCESS]:()=>{
             return {
                 ...state,
-                applications:action.applications,
+                applications:action.applications.reverse(),
                 loading: false
+            }
+        },
+        [DELETE_DATA_SUCCESS]:()=>{
+            const applications = state.applications.filter(({appId})=> appId!==action.appId).reverse();
+            return{
+                ...state,
+                applications,
+                loading:false
             }
         }
     };

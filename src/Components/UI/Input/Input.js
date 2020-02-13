@@ -8,6 +8,7 @@ const Input = props => {
             className={classes.InputElement}
             {...props.elementConfig}
             value={props.value}
+            checked={props.checked}
             onChange={props.changed}
         />,
         'textarea': () =>

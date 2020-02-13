@@ -9,7 +9,7 @@ import {
 const initialState = {
     applications: [],
     loading: false,
-    error: null
+    error: null,
 };
 
 const reducer = (state = initialState, action) => {

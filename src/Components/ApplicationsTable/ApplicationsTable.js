@@ -3,7 +3,8 @@ import {connect} from "react-redux";
 import {deleteApplication, fetchApplications} from "../../store/actions/actions";
 import Table from "../UI/Table/Table";
 import Modal from "../UI/Modal/Modal";
-import DeleteForm from "../DeleteForm/DeleteForm";
+import DeleteForm from "../Forms/DeleteForm/DeleteForm";
+import EditForm from "../Forms/EditForm/EditForm";
 
 const ApplicationsTable = props => {
     const {onFetchApplications, applications, loading,onDeleteRowHandler} = props;
@@ -83,10 +84,20 @@ const ApplicationsTable = props => {
         onDeleteRowHandler(currAppId);
         cancelModal();
     };
-    const modalForm =<DeleteForm
+    const editRowHandler = ()=>{
+
+    };
+    let modalForm =<DeleteForm
         modalClose={cancelModal}
         deleteRowClicked={deleteRowHandler}
     />;
+    if(!deleteModal){
+        modalForm =  <EditForm
+            modalClose={cancelModal}
+            editRowClicked={deleteRowHandler}
+            appId={currAppId}
+        />;
+    }
     return (
         <React.Fragment>
             <Modal show={modalShow} modalClose={cancelModal}>

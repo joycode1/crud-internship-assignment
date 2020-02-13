@@ -5,18 +5,7 @@ import Table from "../UI/Table/Table";
 
 const ApplicationsTable = props => {
     const {onFetchApplications, applications, loading} = props;
-    const test = {
-        /*name: 'Name',
-        email: 'Email',
-        phone: 'Phone Number',
-        age: 'Age',
-        communicationWay: 'Preferred Way of Communication',
-        englishLvl: 'English Level',
-        available: 'Available to Start',
-        shortPresent: 'Short Personal Presentation',
-        skills: 'Technical Skills and Courses',
-        homeStudy: 'Study from home?'*/
-    };
+
     const columns = React.useMemo(
         () => [
             {
@@ -55,10 +44,10 @@ const ApplicationsTable = props => {
                     }, {
                         Header: 'Study from home?',
                         accessor: 'homeStudy',
-                    },{
+                    }, {
                         Header: 'Actions',
-                        accessor: 'appId',
-                    },
+                        accessor: ''
+                    }
                 ],
             },
         ],

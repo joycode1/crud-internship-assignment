@@ -9,6 +9,7 @@ const Navbar = props =>{
             <div className={classes.Logo}>Student Application System</div>
             <nav>
                 <ul className={classes.Container}>
+                    
                     <li> <a href="#">View all Applications</a></li>
                     <li><a href="#">Register an Application</a></li>
                 </ul>

@@ -24,7 +24,7 @@ const failSubmit = (error) => {
 const submitApplication = (applicationData) => {
     return dispatch => {
         dispatch(startSubmit());
-        axios.post('https://student-management-task.firebaseio.com/apllications.json')
+        axios.post('https://student-management-task.firebaseio.com/applications.json',applicationData)
             .then((res) => {
                 dispatch(successSubmit(res.data, applicationData))
             })

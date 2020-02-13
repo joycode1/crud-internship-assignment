@@ -16,7 +16,7 @@ const reducer = (state = initialState, action) => {
             }
         },
         [SUBMIT_SUCCESS]: () => {
-            const newApplication = {...action.applicationData, appId: action.appId,};
+            const newApplication = {...action.applicationData, appId: action.appId.name,};
             return {
                 ...state,
                 applications: [...state.applications, newApplication],

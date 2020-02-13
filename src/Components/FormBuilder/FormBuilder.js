@@ -2,6 +2,8 @@ import React, {useState} from 'react';
 import Input from "../UI/Input/Input";
 import Button from "../UI/Button/Button";
 import isFormValid from "../../utils/formValidation";
+import {connect} from "react-redux";
+import {submitApplication} from "../../store/actions/actions";
 import classes from './FormBuilder.module.css';
 
 const FormBuilder = props => {
@@ -83,7 +85,7 @@ const FormBuilder = props => {
                 ]
             },
             value: 'phone',
-            name:'communication',
+            name: 'communication',
             validation: {},
             valid: true,
             touched: false
@@ -158,23 +160,28 @@ const FormBuilder = props => {
         }
     });
 
-    const formSubmitHandler = () => {
-
+    const formSubmitHandler = (ev) => {
+        ev.preventDefault();
+        let applicationData = {};
+        for (let formType in inputForm) {
+            applicationData[formType] = formType!=='homeStudy' ? inputForm[formType].value : inputForm[formType].checked;
+        }
+        props.onNewApplicationSubmit(applicationData);
     };
     const inputChangedHandler = (type, ev) => {
 
-        const {isValid, errorMsg} = isFormValid( type==='communicationWay' ? ev: ev.target.value, inputForm, type);
+        const {isValid, errorMsg} = isFormValid(type === 'communicationWay' ? ev : ev.target.value, inputForm, type);
         const form = {
             ...inputForm,
             [type]: {
                 ...inputForm[type],
-                value: type!=='communicationWay' || type!=='homeStudy'? ev : ev.target.value,
+                value: type !== 'communicationWay' && type !== 'homeStudy' ? ev.target.value : ev,
                 touched: true,
                 valid: isValid,
                 errorMsg
             }
         };
-        if(type==='homeStudy'){
+        if (type === 'homeStudy') {
             form[type].checked = ev.target.checked;
         }
         setInputForm(form);
@@ -209,5 +216,14 @@ const FormBuilder = props => {
         </div>
     )
 };
-
-export default FormBuilder;
+const mapStateToProps = state => {
+    return {
+        loading: state.loading
+    }
+};
+const mapDispatchToProps = dispatch => {
+    return {
+        onNewApplicationSubmit: (appData) => dispatch(submitApplication(appData))
+    }
+};
+export default connect(mapStateToProps, mapDispatchToProps)(FormBuilder);

@@ -1,9 +1,9 @@
-import React, {useState} from 'react';
+import React, {useState,useEffect} from 'react';
 import Input from "../UI/Input/Input";
 import Button from "../UI/Button/Button";
 import isFormValid from "../../utils/formValidation";
 import {connect} from "react-redux";
-import {submitApplication} from "../../store/actions/actions";
+import {fetchApplications, submitApplication} from "../../store/actions/actions";
 import classes from './FormBuilder.module.css';
 
 const FormBuilder = props => {
@@ -160,6 +160,7 @@ const FormBuilder = props => {
         }
     });
 
+
     const formSubmitHandler = (ev) => {
         ev.preventDefault();
         let applicationData = {};
@@ -218,12 +219,14 @@ const FormBuilder = props => {
 };
 const mapStateToProps = state => {
     return {
-        loading: state.loading
+        loading: state.loading,
+        applications:state.applications
     }
 };
 const mapDispatchToProps = dispatch => {
     return {
-        onNewApplicationSubmit: (appData) => dispatch(submitApplication(appData))
+        onNewApplicationSubmit: (appData) => dispatch(submitApplication(appData)),
+
     }
 };
 export default connect(mapStateToProps, mapDispatchToProps)(FormBuilder);

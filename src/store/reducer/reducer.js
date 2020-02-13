@@ -1,4 +1,4 @@
-import {SUBMIT_START, SUBMIT_SUCCESS, SUBMIT_FAIL} from "../actions/actionTypes";
+import {REQUEST_START, SUBMIT_SUCCESS, REQUEST_FAIL,FETCH_DATA_SUCCESS,} from "../actions/actionTypes";
 
 const initialState = {
     applications: [],
@@ -8,7 +8,7 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
     const reducerMap = {
-        [SUBMIT_START]: () => {
+        [REQUEST_START]: () => {
             return {
                 ...state,
                 loading: true,
@@ -23,9 +23,17 @@ const reducer = (state = initialState, action) => {
                 loading: false
             }
         },
-        [SUBMIT_FAIL]: () => {
+        [REQUEST_FAIL]: () => {
             return {
-                error: action.error
+                error: action.error,
+                loading:false
+            }
+        },
+        [FETCH_DATA_SUCCESS]:()=>{
+            return {
+                ...state,
+                applications:action.applications,
+                loading: false
             }
         }
     };

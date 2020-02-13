@@ -59,9 +59,7 @@ const ApplicationsTable = props => {
         []
     );
     useEffect(() => {
-        console.log('render')
         onFetchApplications();
-
     }, [onFetchApplications]);
 
     const modalDeleteHandler = (appId, ev) => {
@@ -74,10 +72,11 @@ const ApplicationsTable = props => {
         setDeleteModal(false);
         setCurrAppId(appId);
         setModalShow(true);
+
+
     };
     const cancelModal = () => {
         setDeleteModal(null);
-        setCurrAppId(null);
         setModalShow(false);
     };
     const deleteRowHandler=() =>{
@@ -92,7 +91,6 @@ const ApplicationsTable = props => {
     if(!deleteModal){
         modalForm =  <EditForm
             modalClose={cancelModal}
-            editRowClicked={deleteRowHandler}
             appId={currAppId}
         />;
     }

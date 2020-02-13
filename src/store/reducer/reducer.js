@@ -53,7 +53,8 @@ const reducer = (state = initialState, action) => {
         [UPDATE_DATA_SUCCESS]: ()=>{
             const changedApplicationIndex = state.applications.findIndex(({appId})=> appId===action.appId);
             const applications =[...state.applications];
-           applications.splice(changedApplicationIndex,1,action.appData);
+            const updatedApplication = {...action.appData, appId: action.appId};
+           applications.splice(changedApplicationIndex,1,updatedApplication);
             return{
                 ...state,
                 applications:applications,

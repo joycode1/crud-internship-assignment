@@ -10,7 +10,7 @@ const EditForm = props => {
                 <h5 className="modal-title">Edit Application:</h5>
             </div>
             <div className="modal-body">
-                <FormBuilder appId={props.appId}/>
+                <FormBuilder appId={props.appId} modalClose={props.modalClose}/>
             </div>
             <div className="modal-footer">
                 <Button btnClass="btn btn-secondary" clicked={props.modalClose}>Close</Button>

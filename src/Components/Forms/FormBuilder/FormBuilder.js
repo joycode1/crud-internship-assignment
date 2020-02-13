@@ -7,7 +7,7 @@ import {submitApplication, updateApplication} from "../../../store/actions/actio
 import classes from './FormBuilder.module.css';
 
 const FormBuilder = props => {
-        const {appId, applications} = props;
+        const {appId, applications,modalClose} = props;
         const [formIsValid, setFormIsValid] = useState(false);
         const [inputForm, setInputForm] = useState({
             name: {
@@ -161,14 +161,13 @@ const FormBuilder = props => {
             }
         });
         const [isEditForm, setIsEditForm] = useState(false);
+
         useEffect(() => {
+            console.log(appId);
             if (appId) {
                 formUpdate();
             }
-            return () => {
-                setIsEditForm(false);
-                setFormIsValid(false);
-            }
+
         }, [appId]);
         const formUpdate = () => {
             const currentApplication = applications.find(application => application.appId === appId);
@@ -194,6 +193,7 @@ const FormBuilder = props => {
             }
             if (isEditForm) {
                 props.onEditApplication(applicationData, appId);
+               modalClose();
             } else {
                 props.onNewApplicationSubmit(applicationData);
             }

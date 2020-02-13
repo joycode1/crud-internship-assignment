@@ -9,16 +9,16 @@ const isFormValid = (currentValue, formObject, type) => {
     if (validators.match !== undefined) {
         isValid = currentValue.match(validators.match) && isValid;
         if(!isValid && type ==='email'){
-            errorMsg='Input must be a valid email';
+            errorMsg='*Input must be a valid email';
         }
         if(!isValid && type ==='name'){
-            errorMsg='Name must be a valid text';
+            errorMsg='*Name must be a valid text';
         }
         if(!isValid && type ==='age'){
-            errorMsg='Age must be a valid number';
+            errorMsg='*Age must be a valid number';
         }
         if(!isValid && type ==='phone'){
-            errorMsg='Phone number must include at least six numbers'
+            errorMsg='*Phone number must include at least six numbers'
         }
     }
     return {isValid,errorMsg};

@@ -5,6 +5,7 @@ import isFormValid from "../../../utils/formValidation";
 import {connect} from "react-redux";
 import {submitApplication, updateApplication} from "../../../store/actions/actions";
 import classes from './FormBuilder.module.css';
+import Spinner from "../../UI/Spinner/Spinner";
 
 const FormBuilder = props => {
         const {appId, applications, modalClose} = props;
@@ -229,6 +230,7 @@ const FormBuilder = props => {
             <h5 className="card-header bg-dark text-white  text-center py-2 text-uppercase font-weight-bold">
                 <strong>Register a new Application</strong>
             </h5>);
+
         let form = <form onSubmit={formSubmitHandler} className="">
             {header}
             {formElements.map(({id, config}) => (<Input
@@ -254,7 +256,6 @@ const FormBuilder = props => {
 ;
 const mapStateToProps = state => {
     return {
-        loading: state.loading,
         applications: state.applications
     }
 };

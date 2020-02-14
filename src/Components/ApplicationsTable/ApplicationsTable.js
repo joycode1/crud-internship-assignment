@@ -5,9 +5,10 @@ import Table from "../UI/Table/Table";
 import Modal from "../UI/Modal/Modal";
 import DeleteForm from "../Forms/DeleteForm/DeleteForm";
 import EditForm from "../Forms/EditForm/EditForm";
+import Spinner from "../UI/Spinner/Spinner";
 
 const ApplicationsTable = props => {
-    const {onFetchApplications, applications, loading,onDeleteRowHandler} = props;
+    const {onFetchApplications, applications, loading, onDeleteRowHandler} = props;
     const [modalShow, setModalShow] = useState(false);
     const [deleteModal, setDeleteModal] = useState(false);
     const [currAppId, setCurrAppId] = useState(null);
@@ -79,19 +80,26 @@ const ApplicationsTable = props => {
         setDeleteModal(null);
         setModalShow(false);
     };
-    const deleteRowHandler=() =>{
+    const deleteRowHandler = () => {
         onDeleteRowHandler(currAppId);
         cancelModal();
     };
 
-    let modalForm =<DeleteForm
+    let modalForm = <DeleteForm
         modalClose={cancelModal}
         deleteRowClicked={deleteRowHandler}
     />;
-    if(!deleteModal){
-        modalForm =  <EditForm
+    if (!deleteModal) {
+        modalForm = <EditForm
             modalClose={cancelModal}
             appId={currAppId}
+        />;
+    }
+    let table = <Spinner/>;
+    if (!props.loading) {
+        table = <Table columns={columns} data={applications}
+                       deleteHandler={modalDeleteHandler}
+                       editHandler={modalEditHandler}
         />;
     }
     return (
@@ -100,10 +108,7 @@ const ApplicationsTable = props => {
                 {modalForm}
             </Modal>
             <div className="container-fluid">
-                <Table columns={columns} data={applications}
-                       deleteHandler={modalDeleteHandler}
-                       editHandler={modalEditHandler}
-                />
+                {table}
             </div>
         </React.Fragment>
     )
@@ -117,7 +122,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         onFetchApplications: () => dispatch(fetchApplications()),
-        onDeleteRowHandler:(appId) =>dispatch(deleteApplication(appId))
+        onDeleteRowHandler: (appId) => dispatch(deleteApplication(appId))
     }
 };
 export default connect(mapStateToProps, mapDispatchToProps)(ApplicationsTable);

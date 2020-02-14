@@ -1,34 +1,21 @@
-.Navbar {
-    height: auto;
-    width: 100%;
-    position: fixed;
-    top: 0;
-    left: 0;
-    background-color: #1E88E5;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 20px;
-    box-sizing: border-box;
-    z-index: 90;
-}
-@media (max-width: 500px) {
-    .Navbar {
-        display: block;
-    }
-}
-.Container {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    display: flex;
-    flex-flow: column;
-    align-items: center;
-    height: 100%;
-}
+
 @media (min-width: 500px) {
     .Container {
         flex-flow: row;
+    }
+    ul{
+        flex-direction: row!important;
+    }
+    ul li{
+        margin-right: 1rem;
+
+    }
+}
+@media (max-width: 500px) {
+    ul {
+        flex-direction: column;
+        text-align: center;
+        margin: 0 auto;
     }
 }
 .Logo{
@@ -36,48 +23,4 @@
     font-weight: bold;
     font-size: 1.3em;
 }
-li {
-    margin: 10px 0;
-    box-sizing: border-box;
-    display: block;
-    width: 100%;
-}
 
-li a {
-    color: #42A5F5;
-    text-decoration: none;
-    width: 100%;
-    box-sizing: border-box;
-    display: block;
-}
-
-li a:hover,
-li a:active,
-li a.active {
-    color: #FFFFFF;
-}
-
-@media (min-width: 500px) {
-    li {
-        margin: 0;
-        display: flex;
-        height: 100%;
-        width: auto;
-        align-items: center;
-    }
-
-    li a {
-        color: white;
-        height: 100%;
-        padding: 16px 10px;
-        border-bottom: 4px solid transparent;
-    }
-
-    li a:hover,
-    li a:active,
-    li a.active {
-        background-color: #42A5F5;
-        border-bottom: 4px solid #0D47A1;
-        color: #ffff;
-    }
-}

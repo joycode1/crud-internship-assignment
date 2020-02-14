@@ -6,7 +6,7 @@ import Modal from "../UI/Modal/Modal";
 import DeleteForm from "../Forms/DeleteForm/DeleteForm";
 import EditForm from "../Forms/EditForm/EditForm";
 import Spinner from "../UI/Spinner/Spinner";
-
+import ScrollableAnchor from 'react-scrollable-anchor';
 const ApplicationsTable = props => {
     const {onFetchApplications, applications, onDeleteRowHandler} = props;
     const [modalShow, setModalShow] = useState(false);
@@ -107,9 +107,11 @@ const ApplicationsTable = props => {
             <Modal show={modalShow} modalClose={cancelModal}>
                 {modalForm}
             </Modal>
-            <div className="container-fluid">
+            <ScrollableAnchor id={'applications'}>
+                <div className="container-fluid">
                 {table}
-            </div>
+            </div></ScrollableAnchor>
+
         </React.Fragment>
     )
 };

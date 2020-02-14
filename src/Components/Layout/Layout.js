@@ -4,7 +4,6 @@ import Navbar from "../UI/Navbar/Navbar";
 
 const Layout = props => {
 
-
     return (
         <div className={classes.MainWrapper}>
             <Navbar/>

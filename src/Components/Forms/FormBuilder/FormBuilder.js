@@ -4,8 +4,8 @@ import Button from "../../UI/Button/Button";
 import isFormValid from "../../../utils/formValidation";
 import {connect} from "react-redux";
 import {submitApplication, updateApplication} from "../../../store/actions/actions";
+import ScrollableAnchor,{goToAnchor} from 'react-scrollable-anchor';
 import classes from './FormBuilder.module.css';
-
 const FormBuilder = props => {
         const {appId, applications, modalClose} = props;
         const [formIsValid, setFormIsValid] = useState(false);
@@ -184,6 +184,7 @@ const FormBuilder = props => {
             setIsEditForm(true);
             setFormIsValid(true);
         },[appId]);
+
         const formSubmitHandler = (ev) => {
             ev.preventDefault();
             let applicationData = {};
@@ -196,6 +197,7 @@ const FormBuilder = props => {
             } else {
                 props.onNewApplicationSubmit(applicationData);
             }
+            goToAnchor('applications');
         };
         const inputChangedHandler = (type, ev) => {
             const {isValid, errorMsg} = isFormValid(type === 'communicationWay' ? ev : ev.target.value, inputForm, type);
@@ -249,9 +251,12 @@ const FormBuilder = props => {
         </form>;
         const formClasses = [classes.FormBuilder, isEditForm && classes.Modal];
         return (
-            <div className={formClasses.join(' ')}>
-                {form}
-            </div>
+            <ScrollableAnchor id={'submitApplication'}>
+                <div className={formClasses.join(' ')}>
+                    {form}
+                </div>
+            </ScrollableAnchor>
+
         )
     }
 ;

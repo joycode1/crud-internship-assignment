@@ -26,7 +26,7 @@ const Input = props => {
                 ))
             }
         </select>,
-        'radioGroup': () => <RadioGroup name={props.name} selectedValue={props.value} onChange={props.changed}>
+        'radioGroup': () => <RadioGroup name={props.name} className="form-check form-check-inline" selectedValue={props.value} onChange={props.changed}>
             {props.elementConfig.options.map(({value, displayValue}) => (
                 <React.Fragment key={value}><Radio  value={value}/>{displayValue}</React.Fragment>))
             }

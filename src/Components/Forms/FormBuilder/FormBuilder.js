@@ -7,7 +7,7 @@ import {submitApplication, updateApplication} from "../../../store/actions/actio
 import classes from './FormBuilder.module.css';
 
 const FormBuilder = props => {
-        const {appId, applications,modalClose} = props;
+        const {appId, applications, modalClose} = props;
         const [formIsValid, setFormIsValid] = useState(false);
         const [inputForm, setInputForm] = useState({
             name: {
@@ -193,7 +193,7 @@ const FormBuilder = props => {
             }
             if (isEditForm) {
                 props.onEditApplication(applicationData, appId);
-               modalClose();
+                modalClose();
             } else {
                 props.onNewApplicationSubmit(applicationData);
             }
@@ -225,7 +225,12 @@ const FormBuilder = props => {
                 config: inputForm[key]
             })
         }
-        let form = <form onSubmit={formSubmitHandler}>
+        const header = !isEditForm && (
+            <h5 className="card-header bg-dark text-white  text-center py-2 text-uppercase font-weight-bold">
+                <strong>Register a new Application</strong>
+            </h5>);
+        let form = <form onSubmit={formSubmitHandler} className="">
+            {header}
             {formElements.map(({id, config}) => (<Input
                 key={id}
                 value={config.value}
@@ -239,9 +244,9 @@ const FormBuilder = props => {
             />))}
             <Button disabled={!formIsValid}>{!isEditForm ? 'Submit Application' : 'Edit Application'}</Button>
         </form>;
-
+        const formClasses = [classes.FormBuilder, isEditForm && classes.Modal];
         return (
-            <div className={classes.FormBuilder}>
+            <div className={formClasses.join(' ')}>
                 {form}
             </div>
         )

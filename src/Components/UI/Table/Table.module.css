@@ -1,17 +1,12 @@
-body {
-    line-height: 1.25;
-}
-table th
- {
+
+table th {
     padding: .625em;
     text-align: center;
-}
-table th {
     font-size: .85em;
     letter-spacing: .1em;
     text-transform: uppercase;
+    font-weight: bold;
 }
-
 @media screen and (max-width: 600px) {
     table {
         border: 0;

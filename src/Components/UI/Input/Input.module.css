@@ -1,8 +1,4 @@
-.Input {
-    width: 100%;
-    padding: 10px;
-    box-sizing: border-box;
-}
+
 
 .InputElement {
     outline: none;
@@ -16,9 +12,10 @@
 }
 .Label {
     font-weight: bold;
+    text-transform: uppercase;
 }
 .errorMsg{
     color:red;
     font-size: 0.8em;
-    margin-bottom: 0.5em;
+    margin: 0 auto;
 }

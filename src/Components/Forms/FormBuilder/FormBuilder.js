@@ -85,7 +85,7 @@ const FormBuilder = props => {
                         {value: 'phone', displayValue: 'Phone'},
                     ]
                 },
-                value: 'phone',
+                value: 'email',
                 name: 'communication',
                 validation: {},
                 valid: true,
@@ -256,7 +256,6 @@ const FormBuilder = props => {
                     {form}
                 </div>
             </ScrollableAnchor>
-
         )
     }
 ;

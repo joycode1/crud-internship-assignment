@@ -109,7 +109,7 @@ const ApplicationsTable = props => {
             </Modal>
             <ScrollableAnchor id={'applications'}>
                 <div className="container-fluid">
-                {table}
+                    {table}
             </div></ScrollableAnchor>
 
         </React.Fragment>

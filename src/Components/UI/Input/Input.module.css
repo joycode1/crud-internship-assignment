@@ -1,18 +1,11 @@
 
 
-.InputElement {
-    outline: none;
-    border: 1px solid #ccc;
-    background-color: white;
-    font: inherit;
-    padding: 6px 10px;
-    display: block;
-    width: 100%;
-    box-sizing: border-box;
-}
+
+
 .Label {
     font-weight: bold;
     text-transform: uppercase;
+    font-size: 0.8rem!important;
 }
 .errorMsg{
     color:red;

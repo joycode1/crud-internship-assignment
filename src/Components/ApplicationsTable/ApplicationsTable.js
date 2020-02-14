@@ -73,8 +73,6 @@ const ApplicationsTable = props => {
         setDeleteModal(false);
         setCurrAppId(appId);
         setModalShow(true);
-
-
     };
     const cancelModal = () => {
         setDeleteModal(null);

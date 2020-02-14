@@ -7,10 +7,10 @@ const EditForm = props => {
         <React.Fragment>
             <div className="modal-header">
                 <h5 className="modal-title">Edit Application:</h5>
-                <Button btnClass="btn btn-secondary" clicked={props.modalClose}>Close</Button>
+                <Button btnClass="btn btn-secondary btn-sm" clicked={props.modalClose}>Close</Button>
             </div>
             <div className="modal-body">
-                <FormBuilder appId={props.appId} modalClose={props.modalClose}/>
+                <FormBuilder appId={props.appId}  modalClose={props.modalClose}/>
             </div>
         </React.Fragment>
     )

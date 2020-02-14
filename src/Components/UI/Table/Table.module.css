@@ -1,4 +1,7 @@
+table{
+    width: 80%;
 
+}
 table th {
     padding: .625em;
     text-align: center;
@@ -7,6 +10,7 @@ table th {
     text-transform: uppercase;
     font-weight: bold;
 }
+
 @media screen and (max-width: 600px) {
     table {
         border: 0;

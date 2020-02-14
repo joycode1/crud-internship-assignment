@@ -24,7 +24,7 @@ const Table = props => {
 
     return (
         <React.Fragment>
-            <table className="table table-bordered table-striped"  {...getTableProps()}>
+            <table className="table-bordered table-striped"  {...getTableProps()}>
                 <thead>
                 {headerGroups.map((headerGroup, i) => (
                     <tr key={i}  {...headerGroup.getHeaderGroupProps()}>

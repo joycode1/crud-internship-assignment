@@ -90,6 +90,18 @@ const FormBuilder = props => {
                 validation: {},
                 valid: true,
                 touched: false
+            }, available: {
+                elementType: 'input',
+                elementLabel: 'Available to Start',
+                elementConfig: {
+                    type: 'date'
+                },
+                value: '',
+                validation: {
+                    required: true
+                },
+                valid: false,
+                touched: false
             },
             englishLvl: {
                 elementType: 'select',
@@ -108,22 +120,10 @@ const FormBuilder = props => {
                 validation: {},
                 valid: true
             },
-            available: {
-                elementType: 'input',
-                elementLabel: 'Available to Start',
-                elementConfig: {
-                    type: 'date'
-                },
-                value: '',
-                validation: {
-                    required: true
-                },
-                valid: false,
-                touched: false
-            },
+
             skills: {
                 elementType: 'textarea',
-                elementLabel: 'Technical Skills and Courses',
+                elementLabel: '',
                 elementConfig: {
                     rows: '5',
                     cols: '15',
@@ -137,7 +137,7 @@ const FormBuilder = props => {
             shortPresent:
                 {
                     elementType: 'textarea',
-                    elementLabel: 'Short Personal Presentation',
+                    elementLabel: '',
                     elementConfig: {
                         rows: '5',
                         cols: '15',
@@ -230,10 +230,10 @@ const FormBuilder = props => {
             <h5 className="card-header bg-dark text-white  text-center py-2 text-uppercase font-weight-bold">
                 <strong>Register a new Application</strong>
             </h5>);
-
         let form = <form onSubmit={formSubmitHandler}>
             {header}
-            {formElements.map(({id, config}) => (<Input
+            <div className="row">
+            {formElements.map(({id, config}) => (<div className="col"><Input
                 key={id}
                 value={config.value}
                 checked={config.checked}
@@ -246,7 +246,8 @@ const FormBuilder = props => {
                 elementLabel={config.elementLabel}
                 errorMsg={config.errorMsg}
                 changed={inputChangedHandler.bind(undefined, id)}
-            />))}
+            /></div>))}
+            </div>
             <Button disabled={!formIsValid}>{!isEditForm ? 'Submit Application' : 'Edit Application'}</Button>
         </form>;
         const formClasses = [classes.FormBuilder, isEditForm && classes.Modal];

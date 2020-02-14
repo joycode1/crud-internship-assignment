@@ -14,7 +14,7 @@ const Input = props => {
         />,
         'textarea': () =>
             <textarea
-                className={classes.InputElement}
+                className=" form-control"
                 {...props.elementConfig}
                 value={props.value}
                 onChange={props.changed}
@@ -34,12 +34,11 @@ const Input = props => {
     };
 
     const inputElement = inputsMap[props.elementType]();
-
     const required = props.required && !props.valid ? <span className={classes.errorMsg}>*Required</span>: null;
     return (
         <React.Fragment>
             <div className="form-inline">
-                <label className="col-form-label mx-auto  text-sm">
+                <label className="col-form-label mx-auto">
                     <span className="mr-2 font-weight-bold text-uppercase">{props.elementLabel}</span>
                     {inputElement}{required}
                 </label>

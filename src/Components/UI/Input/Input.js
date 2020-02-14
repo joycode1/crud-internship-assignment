@@ -3,9 +3,10 @@ import classes from './Input.module.css';
 import {Radio, RadioGroup} from 'react-radio-group';
 
 const Input = props => {
+    const isValid = !props.touched && !props.valid ? null : props.touched && !props.valid ? "is-invalid":"is-valid";
     const inputsMap = {
         'input': () => <input
-            className= "form-control form-control-sm date"
+            className= {`form-control form-control-sm date ${isValid}`}
             {...props.elementConfig}
             value={props.value}
             checked={props.checked}
@@ -27,18 +28,20 @@ const Input = props => {
         </select>,
         'radioGroup': () => <RadioGroup name={props.name} selectedValue={props.value} onChange={props.changed}>
             {props.elementConfig.options.map(({value, displayValue}) => (
-                <React.Fragment><Radio value={value}/>{displayValue}</React.Fragment>))
+                <React.Fragment key={value}><Radio  value={value}/>{displayValue}</React.Fragment>))
             }
         </RadioGroup>
     };
 
     const inputElement = inputsMap[props.elementType]();
+
+    const required = props.required && !props.valid ? <span className={classes.errorMsg}>*Required</span>: null;
     return (
         <React.Fragment>
             <div className="form-inline">
-                <label className="col-form-label mx-auto text-uppercase font-weight-bold text-sm">
-                    <span className="mr-2">{props.elementLabel}</span>
-                    {inputElement}
+                <label className="col-form-label mx-auto  text-sm">
+                    <span className="mr-2 font-weight-bold text-uppercase">{props.elementLabel}</span>
+                    {inputElement}{required}
                 </label>
             </div>
             <div className={classes.errorMsg}>{props.errorMsg}</div>

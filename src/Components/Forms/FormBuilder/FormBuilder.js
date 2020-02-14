@@ -1,11 +1,10 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import Input from "../../UI/Input/Input";
 import Button from "../../UI/Button/Button";
 import isFormValid from "../../../utils/formValidation";
 import {connect} from "react-redux";
 import {submitApplication, updateApplication} from "../../../store/actions/actions";
 import classes from './FormBuilder.module.css';
-import Spinner from "../../UI/Spinner/Spinner";
 
 const FormBuilder = props => {
         const {appId, applications, modalClose} = props;
@@ -164,13 +163,12 @@ const FormBuilder = props => {
         const [isEditForm, setIsEditForm] = useState(false);
 
         useEffect(() => {
-            console.log(appId);
             if (appId) {
                 formUpdate();
             }
 
         }, [appId]);
-        const formUpdate = () => {
+        const formUpdate = useCallback(() => {
             const currentApplication = applications.find(application => application.appId === appId);
             const form = {
                 ...inputForm,
@@ -185,7 +183,7 @@ const FormBuilder = props => {
             setInputForm(form);
             setIsEditForm(true);
             setFormIsValid(true);
-        };
+        },[appId]);
         const formSubmitHandler = (ev) => {
             ev.preventDefault();
             let applicationData = {};
@@ -231,12 +229,15 @@ const FormBuilder = props => {
                 <strong>Register a new Application</strong>
             </h5>);
 
-        let form = <form onSubmit={formSubmitHandler} className="">
+        let form = <form onSubmit={formSubmitHandler}>
             {header}
             {formElements.map(({id, config}) => (<Input
                 key={id}
                 value={config.value}
                 checked={config.checked}
+                required={config.validation.required}
+                touched={config.touched}
+                valid={config.valid}
                 name={config.name}
                 elementConfig={config.elementConfig}
                 elementType={config.elementType}

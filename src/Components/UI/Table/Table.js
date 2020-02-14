@@ -26,8 +26,8 @@ const Table = props => {
         <React.Fragment>
             <table className="table table-bordered table-striped"  {...getTableProps()}>
                 <thead>
-                {headerGroups.map(headerGroup => (
-                    <tr  {...headerGroup.getHeaderGroupProps()}>
+                {headerGroups.map((headerGroup, i) => (
+                    <tr key={i}  {...headerGroup.getHeaderGroupProps()}>
                         {headerGroup.headers.map(column => (
                             <th scope="col" {...column.getHeaderProps()}>{column.render('Header')}</th>
                         ))}
@@ -36,19 +36,21 @@ const Table = props => {
                 </thead>
                 <tbody {...getTableBodyProps()}>
                 {rows.map(
-                    (row, i) => {
+                    (row) => {
                         prepareRow(row);
-
                         return (
                             <tr  {...row.getRowProps()}>
                                 {row.cells.map((cell, i) => {
                                     if (row.cells.length - 1 !== i) {
-                                        return <td {...cell.getCellProps()}>{cell.column.id === 'homeStudy' ? mapHomeStudy[cell.value] : cell.render('Cell')}</td>
+                                        return <td
+                                            key={i} {...cell.getCellProps()}>{cell.column.id === 'homeStudy' ? mapHomeStudy[cell.value] : cell.render('Cell')}</td>
                                     }
                                     return (
-                                        <td style={{display: 'flex'}}>
-                                            <Button btnClass="btn btn-success"  clicked={editHandler.bind(undefined, row.original.appId)}><FontAwesomeIcon icon={faEdit}
-                                                                                               /></Button>
+                                        <td key={i} style={{display: 'flex'}}>
+                                            <Button btnClass="btn btn-success"
+                                                    clicked={editHandler.bind(undefined, row.original.appId)}><FontAwesomeIcon
+                                                icon={faEdit}
+                                            /></Button>
                                             <Button btnClass="btn btn-danger"
                                                     clicked={deleteHandler.bind(undefined, row.original.appId)}><FontAwesomeIcon
                                                 icon={faTrashAlt}/></Button>

@@ -8,7 +8,7 @@ import EditForm from "../Forms/EditForm/EditForm";
 import Spinner from "../UI/Spinner/Spinner";
 
 const ApplicationsTable = props => {
-    const {onFetchApplications, applications, loading, onDeleteRowHandler} = props;
+    const {onFetchApplications, applications, onDeleteRowHandler} = props;
     const [modalShow, setModalShow] = useState(false);
     const [deleteModal, setDeleteModal] = useState(false);
     const [currAppId, setCurrAppId] = useState(null);
@@ -116,7 +116,6 @@ const ApplicationsTable = props => {
 const mapStateToProps = state => {
     return {
         applications: state.applications,
-        loading: state.loading
     }
 };
 const mapDispatchToProps = dispatch => {
